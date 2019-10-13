@@ -28,9 +28,9 @@ Babel 配置文件 `.bablerc` 放在项目根目录下，使用 Babel 的第一�
 2. 安装转码规则，官方提供以下规则集，根据需要安装
 ```
 # 使用最新的转码规则
-$ npm install --save-dev @babel/presets-env  //根据当前环境
+$ npm install --save-dev @babel/presets-env  //使用最新的转码规则
 # 使用 react 转码规则
-$ npm install --save-dev @babel/presets-react //使用特定规则
+$ npm install --save-dev @babel/presets-react //使用特定规则，这里使用 react 规则
 ```
 3. 将安装的规则加 `.babelrc`
 ```

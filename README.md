@@ -1,7 +1,7 @@
 # learnES6
 
--Babel：转码器(将 ES6 代码转为 ES5 代码) 
-	+安装Babel：npm install --save-dev @babel/core
+-Babel：转码器(将 ES6 代码转为 ES5 代码)   
+	安装Babel：npm install --save-dev @babel/core
 	配置文件(.babelrc)
 		{
 			"presets": [//设置转码规则

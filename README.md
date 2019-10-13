@@ -62,7 +62,27 @@ $ npx babel src --out-dir lib
 $ npx babel src -d lib
 
 # -s 参数生成 source map 文件
+$ npx babel src -d lib -s
 ```
+### babel-node 模块
+`@babel/node` 模块的 `babel-node` 命令，提供一个支持 ES6 的 REPL 环境，支持 Node REPL 环境的所有功能，可以直接运行 ES6 代码
+* 安装模块
+```
+$ npm install --save-dev @babel/node
+```
+* 使用 npx 运行该模块
+```
+$ npx babel-node
+> (x => x * 2)(1)
+> 2
+```
+* 将代码放入脚本文件 `es6.js` 运行
+```
+# es6.js 的代码
+# console.log((x => x * 2)(1));
+$ npx babel-node es6.js
+```
+
 
 
 

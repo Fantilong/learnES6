@@ -17,7 +17,34 @@ $ es-checker
 $ npm install --save-dev @babel/core
 ```
 ### Babel配置文件 .babelrc
-Babel 配置文件 **.bablerc**
+Babel 配置文件 `.bablerc` 放在项目根目录下，使用 Babel 的第一步就是，配置这个文件.(该文件用来设置转码规则和插件)
+1. 基本格式
+```
+{
+	"presets": [],//规则
+	"plugins": []//插件
+}
+```
+2. 安装转码规则，官方提供以下规则集，根据需要安装
+```
+# 使用最新的转码规则
+$ npm install --save-dev @babel/presets-env  //根据当前环境
+# 使用 react 转码规则
+$ npm install --save-dev @babel/presets-react //使用特定规则
+```
+3. 将安装的规则加 `.babelrc`
+```
+{
+	"presets": [
+		"@babel/env",
+		"@babel/presets-react",
+	],
+	"plugins": []
+}
+```
+使用 Babel 工具和模块之前，都必须写好 `.babelrc` 文件
+
+
 
 
 

@@ -16,7 +16,8 @@ $ es-checker
 ```
 $ npm install --save-dev @babel/core
 ```
-### Babel配置文件babelrc
+### Babel配置文件 .babelrc
+Babel 配置文件 **.bablerc**
 
 
 

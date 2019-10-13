@@ -1,7 +1,7 @@
 # learnES6
 根据 阮一峰的 ECMAScript 6 学习 JS es6语法
 ## ES6 部署进度
-查看 Node 已实现的 ES6 特性<br>
+查看 Node 已实现的 ES6 特性
     $ node --v8-options | grep harmony
 安装 es-checker 工具可以检测当前 Node 环境对 ES6 的支持程度
     $ npm install -g es-checker

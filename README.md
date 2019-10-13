@@ -43,6 +43,7 @@ $ npm install --save-dev @babel/preset-react //使用特定规则，这里使用
 }
 ```
 使用 Babel 工具和模块之前，都必须写好 `.babelrc` 文件
+
 ### 使用 Babel 命令行工具 `@babel/cli`, 进行转码
 * 安装命令行工具
 ```
@@ -64,7 +65,8 @@ $ npx babel src -d lib
 # -s 参数生成 source map 文件
 $ npx babel src -d lib -s
 ```
-### babel-node 模块
+
+### @babel-node 模块
 `@babel/node` 模块的 `babel-node` 命令，提供一个支持 ES6 的 REPL 环境，支持 Node REPL 环境的所有功能，可以直接运行 ES6 代码
 * 安装模块
 ```
@@ -81,6 +83,23 @@ $ npx babel-node
 # es6.js 的代码
 # console.log((x => x * 2)(1));
 $ npx babel-node es6.js
+```
+
+### @babel/register 模块
+`@babel/register` 模块改写 `require` 命令，每当使用 `require` 命令时，加载 `.js`、`.jsx`、`.es`和`.es6`后缀名的文件时，就会先用 Babel 进行转码
+* 安装 `@babel/register` 模块
+```
+# npm install --save-dev @babel/register
+```
+* 使用时 必须首先加载 `@babel/register`
+```
+// index.js
+require('@babel/register');
+require('./es6.js');
+```
+* 然后，就不需要手动对 `index.js` 转码了
+```
+$ node index.js
 ```
 
 

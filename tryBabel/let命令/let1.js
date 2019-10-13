@@ -41,4 +41,3 @@ a[6]();
 // var i = 6;
 
 console.log(i);
-

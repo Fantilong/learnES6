@@ -44,7 +44,7 @@ $ npm install --save-dev @babel/preset-react //使用特定规则，这里使用
 ```
 使用 Babel 工具和模块之前，都必须写好 `.babelrc` 文件
 ### 使用 Babel 命令行工具 `@babel/cli`, 进行转码
-1. 安装命令行工具
+* 安装命令行工具
 ```
 $ npm install --save-dev @babel/cli
 ```

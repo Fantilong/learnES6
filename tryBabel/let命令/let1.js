@@ -40,4 +40,14 @@ a[6]();
 // let i = 5;
 // var i = 6;
 
-console.log(i);
+function f1(){
+	let a = 5;
+	return function(){
+		console.log(a);
+	};
+}
+var f2 = f1();
+f2();
+// console.log(f2());//f2 执行完成后就销毁了，没有东西返回，也就没有输出，所以是 undefined
+
+

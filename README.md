@@ -50,8 +50,18 @@ $ npm install --save-dev @babel/cli
 ```
 	- 基本用法
 	```
-	# 输出转码结果
-	$ npx 
+	# 输出转码结果, 将转换后的结果输出到 cli 界面上
+	$ npx babel example.js 
+	
+	# 转码结果写入文件 --out-file 或 -o
+	$ npx babel example.js --out-file compiled.js
+	$ npx babel example.js -o compiled.js
+
+	# 将整个目录转码 --out-dir 或 -d
+	$ npx babel src --out-dir lib
+	$ npx babel src -d lib
+
+	# -s 参数生成 source map 文件
 	```
 
 

@@ -1,0 +1,6 @@
+{"version":3,
+"sources":["../srcDir/app.js"],
+"names":["arr","map","item"],
+"mappings":";;AAAA,IAAIA,GAAG,GAAG,CAAC,CAAD,EAAG,CAAH,EAAK,EAAL,EAAQ,CAAR,CAAV;AAEAA,GAAG,CAACC,GAAJ,CAAQ,UAAAC,IAAI;AAAA,SAAIA,IAAI,GAAG,CAAX;AAAA,CAAZ",
+"sourcesContent":["var arr = [1,2,23,3];\n\narr.map(item => item + 1);"],
+"file":"app.js"}

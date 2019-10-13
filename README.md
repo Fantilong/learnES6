@@ -7,7 +7,8 @@
     $ npm install -g es-checker
     $ es-checker
 ## Babel 转码器
-可以将 ES6 代码转换为 ES5 代码，从而在现有环境执行  
+可以将 ES6 代码转换为 ES5 代码，从而在现有环境执行
+<br>
 安装 Babel
     $ npm install --save-dev @babel/core
 ### Babel配置文件 .babelrc

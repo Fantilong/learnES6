@@ -62,15 +62,69 @@ baz 才是变量
 */
 
 
-let obj = {
-	a: 1,
-	b: 2
-};
+// let obj = {
+// 	a: 1,
+// 	b: 2
+// };
 
-let {a: tem} = obj// tem 会被声明，
+// let {a: tem} = obj// tem 会被声明，
 
-console.log(tem);
-console.log({a: tem});
+// console.log(tem);
+// console.log({a: tem});
+
+
+// var obj1 = {};
+
+// obj1 = {a:1, b:2, c:3};
+
+// console.log(obj1);
+
+// function f1({x,y,z}) {
+// 	console.log(x,y,z);
+// }
+
+// f1({y:'2', x:'1', z:'3'});
+
+// // 提取 Json
+// let jsonData = {
+// 	status: 'OK',
+// 	id: 42,
+// 	data: [868, 5309]
+// };
+
+// let {id, status, data: number} = jsonData;
+// console.log(id, status, number);
+
+
+/*
+遍历 Map 结构
+*/
+const map = new Map();
+map.set('first', 'hello');
+map.set('second', 'world');
+
+// 获取 键值对
+for (let [key , value] of map) {
+	console.log(key + ' is ' + value);
+}
+
+// 只获取 键
+for (let [key] of map) {
+	console.log('key is ' + key);
+}
+
+// 只获取 值
+for (let [,value] of map) {
+	console.log('value is ' + value);
+}
+
+/*
+加载 指定模块的 特定方法
+*/
+const {SourceMapConsumer, SourceNode} = require('source-map');
+console.log(typeof SourceMapConsumer);
+console.log(typeof SourceNode);
+
 
 
 

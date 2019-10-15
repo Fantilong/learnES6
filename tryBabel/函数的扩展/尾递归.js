@@ -26,3 +26,46 @@ console.log(fibonacci(10));
 
 
 
+/*
+递归函数改写 定义一个专用的尾递归函数
+*/
+// example
+// 尾递归函数
+function tailFctorial(n, total) {
+	if (n === 1) return total;
+	return tailFctorial(n - 1, n * total);
+}
+// 阶乘函数
+function factorial(n){
+	return tailFctorial(n, 1);
+};
+
+/*
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

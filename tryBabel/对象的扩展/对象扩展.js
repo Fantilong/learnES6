@@ -76,11 +76,72 @@
 // };
 
 // 简洁写法输出对象
-let user = {name: 'test'};
-let foo = {bar: 'baz'};
+// let user = {name: 'test'};
+// let foo = {bar: 'baz'};
 
-console.log(user, foo);// { name: 'test' } { bar: 'baz' }
-console.log({user, foo});// { user: { name: 'test' }, foo: { bar: 'baz' } }
+// console.log(user, foo);// { name: 'test' } { bar: 'baz' }
+// console.log({user, foo});// { user: { name: 'test' }, foo: { bar: 'baz' } }
+
+/*
+属性名表达式
+*/
+// 以前
+// let obj = {};
+// obj.foo = true;
+// // 使用属性表达式
+// obj['a' + 'b'] = 123;
+// console.log(obj);
+
+// ES5 字面量定义对象 只能用 .属性 
+// ES6 字面量定义对象 可以用 属性表达式
+// example
+// let propKey = 'foo';
+// let obj = {
+// 	[propKey]: true,// 获取的是变量的值
+// 	['a' + 'b']: 123
+// };
+// console.log(obj);
+
+// example
+// let lastWord = 'last word';
+
+// const a = {
+// 	'first word': 'hello',
+// 	[lastWord]: 'world'
+// };
+// console.log(a['first word']);
+// console.log(a[lastWord]);
+// console.log(a['last word']);
+// console.log(lastWord);
+
+// example 定义方法名
+// let obj = {
+// 	['he' + 'llo'](){return 'hi'}
+// };
+// console.log(obj.hello());
+
+// 属性表达式 与 简洁表示法，不能同时使用，会报错
+// 以下报错
+// const foo = 'bar';
+// const bar = 'abc';
+// const baz = {[foo]};
+
+// 正确
+// const foo = 'bar';
+// const baz = {[foo]: 'abc'};
+// console.log(baz[foo]);
+// console.log(baz['bar']);
+
+// 属性表达式是一个对象，会将对象转为 字符串 [object Object]
+// example
+const keyA = {a: 1};
+const keyB = {b: 1};
+
+const myObject = {
+	[keyA]: 'valueA',// 转化为了 字符串 [object Object]
+	[keyB]: 'valueB',// 覆盖了上面的 值
+};
+console.log(myObject);
 
 
 

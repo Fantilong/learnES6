@@ -15,6 +15,12 @@
 // };
 // console.log(f(1, 2));
 
-// example => 方法简写
-const obj = 
+// example => 函数变量名做对象属性
+const obj = {
+	method(){
+		return 'Hello';
+	}
+};
+console.log(obj);// { method: [Function: method] }
+console.log(obj.method());// Hello
 

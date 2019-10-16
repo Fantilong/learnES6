@@ -48,20 +48,39 @@
 /*
 模块输出 
 */
-let ms = {};
-function getItem(key){
-	return key in ms ? ms[key] : null;
-};
-function setItem(key, value){
-	ms[key] = value;
-};
-function clear() {
-	ms = {};
-}
+// let ms = {};
+// function getItem(key){
+// 	return key in ms ? ms[key] : null;
+// };
+// function setItem(key, value){
+// 	ms[key] = value;
+// };
+// function clear() {
+// 	ms = {};
+// }
 
-// 简洁写法输出
-module.exports = {getItem, setItem, clear};
+// // 简洁写法输出
+// module.exports = {getItem, setItem, clear};
 
+// const cart = {
+// 	_wheels: 4,
+// 	get _wheels(){
+// 		return this._wheels;
+// 	},
+// 	set _wheels(value){
+// 		if (value < this._wheels) {
+// 			throw new Error('数值太小了！');
+// 		}
+// 		this._wheels = value;
+// 	},
+// };
+
+// 简洁写法输出对象
+let user = {name: 'test'};
+let foo = {bar: 'baz'};
+
+console.log(user, foo);// { name: 'test' } { bar: 'baz' }
+console.log({user, foo});// { user: { name: 'test' }, foo: { bar: 'baz' } }
 
 
 

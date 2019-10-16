@@ -25,18 +25,42 @@
 // console.log(obj.method());// Hello
 
 // another example
-let birth = '2000/01/01';
-const Person = {
-	name: '张三',
-	birth,// 调用全局环境中的 birth 变量
-	hello(){console.log('名字是', this.name)}
-};
-console.log(Person);// { name: '张三', birth: '2000/01/01', hello: [Function: hello] }
-console.log(Person.birth);// 2000/01/01
-birth = '2000/01/02';
-console.log(Person.birth);// 2000/01/01
-Person.hello();// // 名字是 张三
+// let birth = '2000/01/01';
+// const Person = {
+// 	name: '张三',
+// 	birth,// 调用全局环境中的 birth 变量
+// 	hello(){console.log('名字是', this.name)}
+// };
+// console.log(Person);// { name: '张三', birth: '2000/01/01', hello: [Function: hello] }
+// console.log(Person.birth);// 2000/01/01
+// birth = '2000/01/02';
+// console.log(Person.birth);// 2000/01/01
+// Person.hello();// // 名字是 张三
 
+// example 简洁写法用于函数返回值，会非常方便
+// function getPoint() {
+// 	const x = 1;
+// 	const y = 10;
+// 	return {x, y};
+// }
+// getPoint();// {x:1, y:10}
+
+/*
+模块输出 
+*/
+let ms = {};
+function getItem(key){
+	return key in ms ? ms[key] : null;
+};
+function setItem(key, value){
+	ms[key] = value;
+};
+function clear() {
+	ms = {};
+}
+
+// 简洁写法输出
+module.exports = {getItem, setItem, clear};
 
 
 

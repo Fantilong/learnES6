@@ -29,55 +29,69 @@ Object.assign() 合并对象
 // ## assign 拷贝属性有限，之拷贝元对象的自身属性，不拷贝
 // 继承属性，也不拷贝不可枚举属性
 // example
-console.log(Object.assign({b: 'c'}, Object.defineProperty({}, 'invisible', {
-	enumerable: false,
-	value: 'hello'
-})));
+// console.log(Object.assign({b: 'c'}, Object.defineProperty({}, 'invisible', {
+// 	enumerable: false,
+// 	value: 'hello'
+// })));
+
+// /*
+// assign
+// 是浅拷贝
+// 可以处理数组，但是会变为对象
+// */
+
+// /*
+// 常见用途
+// */
+// // 给对象添加属性
+// class Point {
+// 	constructor(x, y){
+// 		Object.assign(this, {x, y});
+// 	}
+// };
+// // 给对象添加方法
+// Object.assign(SomeClass.prototype, {
+// 	someMethod(p1, p2){
+// 	//...
+// 	},
+// 	anthorMethod(p1, p2){
+// 	//...
+// 	}，
+// });
+// // 克隆对象 ==> 智能克隆自身的值，不能克隆它继承的值
+// function clone(obj){
+// 	return Object.assign({}, obj);
+// }
+// // 克隆对象 ==> 克隆自身也克隆继承
+// function clone(obj){
+// 	let objProto = Object.getPrototypeOf(obj);
+// 	return Object.assign(Object.create(objProto), obj);
+// };
+// // 合并多个对象
+// const merge = (target, ...source) => Object.assign(target, ...source);
+// // 为属性指定默认值
+// const DEFAULTS = {
+// 	logLevel: 0,
+// 	outputFormat: 'html'
+// };
+// function processContent(options){
+// 	options = Object.assign({}, DEFAULTS, options);
+// 	console.log(options);
+// };
+
 
 /*
-assign
-是浅拷贝
-可以处理数组，但是会变为对象
+Object.getOwnPropertyDescriptors()
+返回 对象所有'自身属性(不是继承来的)'的 描述对象
 */
+// example
+// const obj = {
+// 	foo: 123,
+// 	get bar(){return 'abc'}
+// };
 
-/*
-常见用途
-*/
-// 给对象添加属性
-class Point {
-	constructor(x, y){
-		Object.assign(this, {x, y});
-	}
-};
-// 给对象添加方法
-Object.assign(SomeClass.prototype, {
-	someMethod(p1, p2){
-	//...
-	},
-	anthorMethod(p1, p2){
-	//...
-	}，
-});
-// 克隆对象 ==> 智能克隆自身的值，不能克隆它继承的值
-function clone(obj){
-	return Object.assign({}, obj);
-}
-// 克隆对象 ==> 克隆自身也克隆继承
-function clone(obj){
-	let objProto = Object.getPrototypeOf(obj);
-	return Object.assign(Object.create(objProto), obj);
-};
-// 合并多个对象
-const merge = (target, ...source) => Object.assign(target, ...source);
-// 为属性指定默认值
-const DEFAULTS = {
-	logLevel: 0,
-	outputFormat: 'html'
-};
-function processContent(options){
-	options = Object.assign({}, DEFAULTS, options);
-	console.log(options);
-};
+// console.log(Object.getOwnPropertyDescriptors(obj));
+
 
 
 

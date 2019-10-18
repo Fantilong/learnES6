@@ -315,28 +315,103 @@ Symbol.isConcatSpreadable 表示对象再 concat 时，是否可以展开
 // 设为 true 时，才能展开
 // 也可以定义在类里面
 // example
-class A1 extends Array {
-	constructor(args){
-		super(args);
-		this[Symbol.isConcatSpreadable] = true;
-	}
-}
-class A2 extends Array {
-	constructor(args){
-		super(args);
-	}
-	get [Symbol.isConcatSpreadable](){
-		return false;
+// class A1 extends Array {
+// 	constructor(args){
+// 		super(args);
+// 		this[Symbol.isConcatSpreadable] = true;
+// 	}
+// }
+// class A2 extends Array {
+// 	constructor(args){
+// 		super(args);
+// 	}
+// 	get [Symbol.isConcatSpreadable](){
+// 		return false;
+// 	}
+// }
+
+// let a1 = new A1();
+// a1[0] = 3;
+// a1[1] = 4;
+// let a2 = new A1();
+// a2[0] = 5;
+// a2[1] = 6;
+// console.log([1,2].concat(a1).concat(a2));
+
+
+/*
+Symbol.species 指向一个构造函数，创建衍生对象时，会使用该属性
+*/
+// example
+// class MyArray extends Array{}
+
+// const a = new MyArray(1,2,3);
+// const b = a.map(x => x);// 这样称作 衍生对象
+// const c = a.filter(x => x > 1);
+
+// console.log(b instanceof MyArray);// true
+// console.log(c instanceof MyArray);// true
+// b 和 c 都是 MyArray 的实例
+
+// Symbol.species 属性可以解决这个问题
+// example
+// class MyArray extends Array{
+// 	static get [Symbol.species](){
+// 		return Array;
+// 	}
+
+// 	// 等同于 
+// 	// static get [Symbol.species](){
+// 	// 	return this;
+// 	// }
+// }
+
+// 默认的 Symbol.species 属性等同这种写法
+// class MyArray extends Array{
+// 	static get [Symbol.species](){
+// 		return this;
+// 	}
+// }
+
+// class MyArray extends Array{
+// 	static get [Symbol.species](){
+// 		return Array;
+// 	}
+// }
+
+// const a = new MyArray(1,2,3);
+// const b = a.map(x => x);// 这样称作 衍生对象
+// const c = a.filter(x => x > 1);
+
+// console.log(a instanceof MyArray);// true
+// console.log(b instanceof Array);// true
+// console.log(b instanceof MyArray);// false 因为 Symbol.species 设置返回了Array，
+// instaneof 会用到 Symbol.spccies 属性
+
+// another example
+class T1 extends Promise{}
+
+class T2 extends Promise{
+	static get [Symbol.species](){
+		return Promise;
 	}
 }
 
-let a1 = new A1();
-a1[0] = 3;
-a1[1] = 4;
-let a2 = new A1();
-a2[0] = 5;
-a2[1] = 6;
-console.log([1,2].concat(a1).concat(a2));
+console.log(new T1(r => r()).then(v => v) instanceof T1);
+console.log(new T2(r => r()).then(v => v) instanceof T2);
+
+/*
+Symbol.species的作用在于，实例对象在运行过程中，
+需要再次调用自身的构造函数时，会调用该属性指定的构造函数。
+它主要的用途是，有些类库是在基类的基础上修改的，
+那么子类使用继承的方法时，作者可能希望返回基类的实例，
+而不是子类的实例
+*/
+
+
+
+
+
 
 
 

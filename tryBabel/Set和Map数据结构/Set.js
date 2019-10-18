@@ -117,13 +117,53 @@ Object 判断一个键 与 Set 判断
 // }
 // Set 实例的 forEach() 方法与数组一样，value,key, 集合本身
 // example
-let set = new Set([1,2,3]);
-set.forEach((value, key) => console.log(key + ' : ' + value));
+// let set = new Set([1,2,3]);
+// set.forEach((value, key) => console.log(key + ' : ' + value));
 
 /*
 遍历的应用
 */
+// 与扩展运算符 ... 内部使用 for of 循环，所以也可以用于 Set 结构
+// let set = new Set([1,2,3]);
+// console.log([...set]);
+// console.log(typeof [...set]);
+// // 结合扩展运算符 和 Set 结构去重
+// let arr = [1,2,3,3];
+// arr = [...new Set(arr)];
+// console.log(arr);
 
+// 结合 Map 或 filter
+// let set = new Set([1,2,3,3]);
+// set = new Set([...set].map(x => x * 2));
+// console.log(set);
+
+// set = new Set([...set].filter(x => x > 2));
+// console.log(set);
+
+// 使用 Set 实现并集，交集，差集
+// let a = new Set([1,2,3]);
+// let b = new Set([4,3,2]);
+
+// // 并集
+// let union = new Set([...a, ...b]);
+// console.log(union);
+
+// // 交集
+// let intersect = new Set([...a].filter(x => b.has(x)));
+// console.log(intersect);
+// // 差集
+// let difference = new Set([...a].filter(x => !b.has(x)));
+// console.log(difference);
+
+// 遍历中改变原有 Set 结构，变通方法。
+// 方法1
+let set = new Set([1,2,3]);
+set = new Set([...set].map(x => x * 2));
+console.log(set);
+
+// 方法2
+set = new Set(Array.from(set, x => x * 2));
+console.log(set);
 
 
 

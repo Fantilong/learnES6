@@ -95,26 +95,37 @@ Object 判断一个键 与 Set 判断
 */
 // example
 // keys values entries
-let set = new Set();
-set.add('green');
-set.add('blue');
-set.add('red');
+// let set = new Set();
+// set.add('green');
+// set.add('blue');
+// set.add('red');
 
-console.log(set);
+// console.log(set);
 
-for(let item of set.keys()){
-	console.log(item);
-}
-for(let item of set.values()){
-	console.log(item);
-}
-for(let item of set.entries()){
-	console.log(item);
-}
-// for of 可以直接循环遍历 Set
-for(let item of set){
-	console.log(item);
-}
+// for(let item of set.keys()){
+// 	console.log(item);
+// }
+// for(let item of set.values()){
+// 	console.log(item);
+// }
+// for(let item of set.entries()){
+// 	console.log(item);
+// }
+// // for of 可以直接循环遍历 Set
+// for(let item of set){
+// 	console.log(item);
+// }
+// Set 实例的 forEach() 方法与数组一样，value,key, 集合本身
+// example
+let set = new Set([1,2,3]);
+set.forEach((value, key) => console.log(key + ' : ' + value));
+
+/*
+遍历的应用
+*/
+
+
+
 
 
 

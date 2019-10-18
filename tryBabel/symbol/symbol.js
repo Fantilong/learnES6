@@ -75,8 +75,47 @@ Symbol 作为对象属性名时，不能用 . 运算符
 // };
 
 
+/*
+魔术字符串的本质，代表某个 具有不唯一特质的值
+*/
 
+// example ==> what is magic String
+// function getArea(shape, options){
+// 	let area = 0;
 
+// 	switch(shape){
+// 		case 'Triangle': // 魔术字符串
+// 			area = .5 * options.width * options.height;
+// 		break;
+// 	};	
+
+// 	return area;
+// };
+
+// let magicStr = getArea('Triangle', {width: 100, height: 100});// 魔术字符串
+// console.log(magicStr);
+
+// 消除魔术字符串
+const shapeType = {
+	triganle: 'Triangle'
+};
+
+function getArea(shape, options){
+	let area = 0;
+	switch(shape){// 这里传进来的也是引用，
+		case shapeType.triangle:// 不直接比对字符值，而是比对引用
+			area = .5 * options.width * options.height;
+		break;
+	};
+	return area;
+};
+
+let magicStr = getArea(shapeType.triangle, {width: 100, height: 100});// 魔术字符串
+console.log(magicStr);// 5000
+
+shapeType.triangle = '123';// 即使修改了引用指向的值，比对的也是同一个值
+magicStr = getArea(shapeType.triangle, {width: 100, height: 100});// 魔术字符串
+console.log(magicStr);// 5000
 
 
 

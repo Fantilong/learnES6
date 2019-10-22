@@ -14,17 +14,7 @@ ES6的Hash结构可以：值-值
 // console.log(m.entries());
 // console.log([[{p:'123'}, 'content'],[]]);
 
-/*
-老样子
-set
-get
-delete
-has
-keys
-values
-entries
-clear
-*/
+
 
 // 构造函数接收数组，使用了数组的 forEach方法结合 map.set() 遍历完成
 // Map 的 键 规则中，undefined 和 null 不同，NaN 相同
@@ -45,8 +35,47 @@ console.log(map.get(undefined));// difference
 console.log(map.get(null));// difference
 
 
+/*
+Map 实例的属性和操作方法
+set
+get
+delete
+has
+keys
+values
+entries
+forEach
+clear
+*/
 
+// console.log(map.size);
+// console.log(map.keys());
+// console.log(map.values());
+// console.log(map.entries());
 
+// map.forEach((v, k) => {console.log(k + ' : ' + v)});
+// for(let [k, v] of map){
+// 	console.log(k + ' : ' + v);
+// };
+
+// Map 结构转数组
+// console.log([...map.keys()]);
+// console.log([...map.values()]);
+// console.log([...map.entries()]);
+// console.log([...map]);
+
+// Map 遍历 结合 map 和 filter
+// 先转成数组，在转成 Map
+// forEach 使用 this 绑定作用域
+const reporter = {
+	report: function(k, v){
+		console.log("Key: %s, Value: %s", k, v);
+	}
+};
+
+map.forEach(function(v, k){
+	this.report(k, v);// 这个函数不能使用 => 因为 this是绑定了的
+}, reporter);
 
 
 

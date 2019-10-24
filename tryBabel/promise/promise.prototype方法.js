@@ -128,6 +128,43 @@ server.listen(port)
 // finally 不依赖 Promise 执行结果
 
 
+/*
+Promise.all
+将多个 Promise 实例，包装成一个新的 Promise 实例
+具备 Iterator 接口的对象，可以作为 all 函数参数，例如： 数组...
+成员 Promise 状态都编程 fulfilled 才是 fulfilled
+成员 Promise 有一个是 rejected ，就是 rejected，该 rejected
+实例的返回值 返回给 主 Promise
+*/
+// example
+const p = Promise.all(p1, p2, p3);
+
+// example 
+const promises = [2, 3, ,5 ,6 ,11].map(function(id){
+	return getJSON('/post' + id + '.json');
+});
+
+Promise.all(promises).then(function(posts){
+	// ...
+}).catch(function(reason){
+	// ...
+});
+
+// example
+const databasePromise = connectDatabase();
+
+const booksPromise = databasePromise.then(findAllBooks);
+
+const userPromise = databasePromise.then(getCurrentUser);
+
+Promise.all([
+	booksPromise,
+	userPromise
+]).then(([books, user] => pickTopRecommendations(books, user)));
+
+
+
+
 
 
 

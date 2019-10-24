@@ -37,67 +37,93 @@ Promise 对象的例子
 /*
 Promise 新建后就会立即执行 
 */
-let promise = new Promise(function(resolve, reject){
-	console.log('Promise');
-	resolve();
-});
+// let promise = new Promise(function(resolve, reject){
+// 	console.log('Promise');
+// 	resolve();
+// });
 
-promise.then(function(){
-	console.log('resolved.')
-});
+// promise.then(function(){
+// 	console.log('resolved.')
+// });
 
-console.log('Hi!');
+// console.log('Hi!');
+
+// /*
+// 异步加载图片案例
+// */
+// function loadImageAsync(url){
+// 	return new Promise(function(resolve, reject){
+// 		const image = new Image();
+
+// 		image.onload = function(){
+// 			resolve(image);
+// 		};
+
+// 		image.onerror = function(){
+// 			reject(new Error('Could not load image at ' + url));
+// 		};
+
+// 		image.src = url;
+// 	});
+// }
+
+// /*
+// 异步实现 Ajax 操作案例
+// */
+// const getJSON = function(url){
+// 	const promise = new Promise(function(resolve, reject){
+// 		const handler = function(){
+// 			if (this.readyState !== 4) return;
+// 			if (this.status === 200) {
+// 				resolve(this.response);
+// 			}
+// 			else {
+// 				reject(new Error(this.statusText));
+// 			}
+// 		};
+// 		const client = new XMLHttpRequest();
+// 		client.open("GET", url);
+// 		client.onreadystatechange = handler;
+// 		client.responseType = 'json';
+// 		client.setRequestHeader("Accept", "application/json");
+// 		client.send();
+// 	})
+
+// 	return promise;
+// };
+
+// getJSON("/posts.json").then(function(json){
+// 	console.log('Contents: ' + json);
+// }, function(error){
+// 	console.log('出错了: ' + error);
+// });
 
 /*
-异步加载图片案例
+使用 resolve 再返回 promise ，基本 传递结果
 */
-function loadImageAsync(url){
-	return new Promise(function(resolve, reject){
-		const image = new Image();
 
-		image.onload = function(){
-			resolve(image);
-		};
+// const p1 = new Promise(function(resolve, reject){ /* ... */ });
+// const p2 = new Promise(function(resolve, reject){
+// 	// ...
+// 	resolve(p1);// p1 的状态就传递给了 p2
+// });
 
-		image.onerror = function(){
-			reject(new Error('Could not load image at ' + url));
-		};
+// p2 的状态取决于 p1 的状态
 
-		image.src = url;
-	});
-}
-
-/*
-异步实现 Ajax 操作案例
-*/
-const getJSON = function(url){
-	const promise = new Promise(function(resolve, reject){
-		const handler = function(){
-			if (this.readyState !== 4) return;
-			if (this.status === 200) {
-				resolve(this.response);
-			}
-			else {
-				reject(new Error(this.statusText));
-			}
-		};
-		const client = new XMLHttpRequest();
-		client.open("GET", url);
-		client.onreadystatechange = handler;
-		client.responseType = 'json';
-		client.setRequestHeader("Accept", "application/json");
-		client.send();
-	})
-
-	return promise;
-};
-
-getJSON("/posts.json").then(function(json){
-	console.log('Contents: ' + json);
-}, function(error){
-	console.log('出错了: ' + error);
+const p1 = new Promise(function(resolve, reject){
+	setTimeout(() => reject(new Error('fail')), 3000);
+});
+const p2 = new Promise(function(resolve, reject){
+	setTimeout(() => resolve(p1), 1000);
 });
 
+p2
+.then(result => console.log(result))
+.catch(error => console.log(error));
+
+/*
+resolve 实在本轮事件循环的末尾执行
+*/
 
 
 

@@ -202,9 +202,98 @@ promise.race
 // p.then(console.log)
 // .catch(console.error);
 
+/*
+Promise.allSettled
+等待所有实例的结果都返回
+*/
+
+// example
+// const promises = [
+// 	fetch('/api-1'),
+// 	fetch('/api-2'),
+// 	fetch('/api-3'),
+// ];
+
+// await Promise.allSettled(promises);
+// removeLoadingIndicator();
+
+/*
+Promise.allSettled 返回的实例 总是 fulfilled,
+监听函数接收到的参数是一个数组，对应传入的 Promise 实例
+*/
+
+// const resolved = Promise.resolve(42);
+// const rejected = Promise.reject(-1);
+
+// const allSettledPromise = Promise.allSettled([resolved, rejected]);
+
+// allSettledPromise.then(function(result){
+// 	console.log(result);
 
 
+// });
 
+// const resolved = Promise.resolve(42);
+// const rejected = Promise.reject(-1);
+
+// const allSettledPromise = Promise.allSettled([resolved, rejected]);
+
+// allSettledPromise.then(function (results) {
+//   console.log(results);
+// });
+
+// console.log(Promise.any());
+
+
+/*
+Promise 对象的应用
+*/
+
+// example 加载图片
+const preloadImage = function(path){
+	return new Promise(function(resolve, reject){
+		const image = new Image();
+		image.onload = resolve:
+		image.onerror = reject;
+		image.src = path;
+	})
+};
+
+// Generator 函数与 Promise 结合
+// 使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个 Promie 对象
+function getFoo(){
+	return new Promise(function(resolve, reject){
+		resolve('foo');
+	})
+};
+
+const g = function* (){
+	try {
+		const foo = yield getFoo();
+		console.log(foo);
+	} 
+	catch(e){
+		console.log(e);
+	}
+};
+
+function run(generator){
+	const it = generator();
+
+	function go(result){
+		if (result.done) return result.value;
+
+		return result.value.then(function(value){
+			return go(it.next(value));
+		}, function(err){
+			return go(it.throw(err));
+		})
+	}
+
+	go(it.next());
+}
+
+run(g);
 
 
 

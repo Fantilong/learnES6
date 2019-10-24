@@ -116,51 +116,72 @@ finally
 不管 Promise 对象最后状态如何，都会执行的操作
 */
 // example
-promise.then(result => {})
-.catch(err => {})
-.finally(() => {});
+// promise.then(result => {})
+// .catch(err => {})
+// .finally(() => {});
 
-// example 服务器使用 Promise 处理请求，使用 finally 关闭服务器
-server.listen(port)
-	.then(() => {})
-	.finally(server.stop);
-// finally 回调函数，不接受参数
-// finally 不依赖 Promise 执行结果
+// // example 服务器使用 Promise 处理请求，使用 finally 关闭服务器
+// server.listen(port)
+// 	.then(() => {})
+// 	.finally(server.stop);
+// // finally 回调函数，不接受参数
+// // finally 不依赖 Promise 执行结果
 
 
-/*
-Promise.all
-将多个 Promise 实例，包装成一个新的 Promise 实例
-具备 Iterator 接口的对象，可以作为 all 函数参数，例如： 数组...
-成员 Promise 状态都编程 fulfilled 才是 fulfilled
-成员 Promise 有一个是 rejected ，就是 rejected，该 rejected
-实例的返回值 返回给 主 Promise
-*/
-// example
-const p = Promise.all(p1, p2, p3);
+// /*
+// Promise.all
+// 将多个 Promise 实例，包装成一个新的 Promise 实例
+// 具备 Iterator 接口的对象，可以作为 all 函数参数，例如： 数组...
+// 成员 Promise 状态都编程 fulfilled 才是 fulfilled
+// 成员 Promise 有一个是 rejected ，就是 rejected，该 rejected
+// 实例的返回值 返回给 主 Promise
+// */
+// // example
+// const p = Promise.all(p1, p2, p3);
 
-// example 
-const promises = [2, 3, ,5 ,6 ,11].map(function(id){
-	return getJSON('/post' + id + '.json');
-});
+// // example 
+// const promises = [2, 3, ,5 ,6 ,11].map(function(id){
+// 	return getJSON('/post' + id + '.json');
+// });
 
-Promise.all(promises).then(function(posts){
-	// ...
-}).catch(function(reason){
-	// ...
-});
+// Promise.all(promises).then(function(posts){
+// 	// ...
+// }).catch(function(reason){
+// 	// ...
+// });
 
-// example
-const databasePromise = connectDatabase();
+// // example
+// const databasePromise = connectDatabase();
 
-const booksPromise = databasePromise.then(findAllBooks);
+// const booksPromise = databasePromise.then(findAllBooks);
 
-const userPromise = databasePromise.then(getCurrentUser);
+// const userPromise = databasePromise.then(getCurrentUser);
 
-Promise.all([
-	booksPromise,
-	userPromise
-]).then(([books, user] => pickTopRecommendations(books, user)));
+// Promise.all([
+// 	booksPromise,
+// 	userPromise
+// ]).then(([books, user] => pickTopRecommendations(books, user)));
+
+
+const p1 = new Promise((resolve, reject) => {
+	resolve('hello');
+})
+.then(result => result)
+.catch(e => e);
+
+
+const p2 = new Promise((resolve, reject) => {
+	throw new Error('报错了');
+})
+.then(result => result)
+.catch(e => e);// 如果自己处理了，catch 处理完后，还是会返回一个 promise
+// 返回的的是这个新的 promise，状态时 resolve 
+// Promise.all 认为两个都是 resolve，所以调用resolve的回调函数
+// 如果 p2 不处理异常，则 状态就是 rejected ，那么 Promise.all 的
+// catch 就是处理
+Promise.all([p1, p2])
+.then(result => console.log(result))
+.catch(e => console.log(e));
 
 
 

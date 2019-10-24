@@ -13,10 +13,12 @@ function* helloWorldGenerator(){
 	return 'ending';
 }
 
-var hw = helloWorldGenerator();
+var hw = helloWorldGenerator();// 返回内部状态指针对象，即：遍历器对象
 
+console.log(hw.next());         
 console.log(hw.next());
 console.log(hw.next());
 console.log(hw.next());
-console.log(hw.next());
+
+
 

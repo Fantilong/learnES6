@@ -25,22 +25,23 @@ done 是一个布尔值，表示遍历是否结束
 */
 
 // example ==> 模拟 next 方法返回值的例子
-var it = makeIterator(['a', 'b']);
+// var it = makeIterator(['a', 'b']);
 
-console.log(it.next()); // { value: "a", done: false }
-console.log(it.next()); // { value: "b", done: false }
-console.log(it.next()); // { value: undefined, done: true }
+// console.log(it.next()); // { value: "a", done: false }
+// console.log(it.next()); // { value: "b", done: false }
+// console.log(it.next()); // { value: undefined, done: true }
 
-function makeIterator(array){
-	var nextIndex = 0;
-	return {
-		next: function(){
-			return nextIndex < array.length ?
-				{value: array[nextIndex++], done: false} :
-				{value: undefined, done: true};
-		}
-	};
-};
+// function makeIterator(array){
+// 	var nextIndex = 0;
+// 	return {
+// 		next: function(){
+// 			return nextIndex < array.length ?
+// 				{value: array[nextIndex++], done: false} :
+// 				{value: undefined, done: true};
+// 		}
+// 	};
+// };
+
 
 
 

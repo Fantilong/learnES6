@@ -22,6 +22,74 @@ const obj = {
 
 
 /*
-
-
+原生具备 iterable 的数据结构
+Array
+Map
+Set
+String
+TypedArray
+函数的 arguments 对象
+NodeList 对象
 */
+// example ==> 数组的 Symbol.iterable 属性
+// let arr = ['a', 'b', 'c'];
+// let iter = arr[Symbol.iterator]();
+
+// console.log(iter.next());
+// console.log(iter.next());
+// console.log(iter.next());
+// console.log(iter.next());
+/*
+对象需要被遍历就需要 在 Symbol.iterator 属性上部署 遍历器对象
+可以 for...of 循环调用的
+*/
+class RangeIterator {
+	constructor(start, stop){
+		this.value = start;
+		this.stop = stop;
+	}
+
+	[Symbol.iterator]() {return this;}
+
+	next(){
+		var value = this.value;
+		if (value < this.stop) {
+			this.value++;
+			return {done: false, value: value};
+		}
+		return {done: true, value: undefined};
+	}
+}
+
+function range(start, stop){
+	return new RangeIterator(start, stop);
+};
+
+for (var value of range(0, 3)) {
+	console.log(value);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

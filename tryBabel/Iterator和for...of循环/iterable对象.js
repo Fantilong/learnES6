@@ -43,31 +43,68 @@ NodeList 对象
 对象需要被遍历就需要 在 Symbol.iterator 属性上部署 遍历器对象
 可以 for...of 循环调用的
 */
-class RangeIterator {
-	constructor(start, stop){
-		this.value = start;
-		this.stop = stop;
-	}
+// class RangeIterator {
+// 	constructor(start, stop){
+// 		this.value = start;
+// 		this.stop = stop;
+// 	}
 
-	[Symbol.iterator]() {return this;}
+// 	[Symbol.iterator]() {return this;}
 
-	next(){
-		var value = this.value;
-		if (value < this.stop) {
-			this.value++;
-			return {done: false, value: value};
-		}
-		return {done: true, value: undefined};
-	}
-}
+// 	next(){
+// 		var value = this.value;
+// 		if (value < this.stop) {
+// 			this.value++;
+// 			return {done: false, value: value};
+// 		}
+// 		return {done: true, value: undefined};
+// 	}
+// }
 
-function range(start, stop){
-	return new RangeIterator(start, stop);
+// function range(start, stop){
+// 	return new RangeIterator(start, stop);
+// };
+
+// for (var value of range(0, 3)) {
+// 	console.log(value);
+// }
+
+// example ==> 通过遍历器实现指针结构
+function Obj(value){
+	this.value = value;
+	this.next = null;
 };
 
-for (var value of range(0, 3)) {
-	console.log(value);
+Obj.prototype[Symbol.iterator] = function(){
+	var iterator = {next: next};
+
+	var current = this;
+
+	function next(){
+		if (current) {
+			var value = current.value;
+			current = current.next;
+			return {done: false, value: value};
+		}
+		else {
+			return {done: true};
+		}
+	}
+
+	return iterator;
 }
+
+var one = new Obj(1);
+var two = new Obj(2);
+var three = new Obj(3);
+
+one.next = two;
+two.next = three;
+
+for (var i of one) {
+	console.log(i);
+}
+
 
 
 

@@ -111,6 +111,21 @@ catch 返回的还是一个 Promise 对象，可以继续调用实例方法
 // catch 捕获 reject 和 Promise 内部运行异常
 
 
+/*
+finally
+不管 Promise 对象最后状态如何，都会执行的操作
+*/
+// example
+promise.then(result => {})
+.catch(err => {})
+.finally(() => {});
+
+// example 服务器使用 Promise 处理请求，使用 finally 关闭服务器
+server.listen(port)
+	.then(() => {})
+	.finally(server.stop);
+// finally 回调函数，不接受参数
+// finally 不依赖 Promise 执行结果
 
 
 

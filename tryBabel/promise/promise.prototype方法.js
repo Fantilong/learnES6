@@ -250,50 +250,79 @@ Promise 对象的应用
 */
 
 // example 加载图片
-const preloadImage = function(path){
-	return new Promise(function(resolve, reject){
-		const image = new Image();
-		image.onload = resolve:
-		image.onerror = reject;
-		image.src = path;
-	})
-};
+// const preloadImage = function(path){
+// 	return new Promise(function(resolve, reject){
+// 		const image = new Image();
+// 		image.onload = resolve:
+// 		image.onerror = reject;
+// 		image.src = path;
+// 	})
+// };
 
-// Generator 函数与 Promise 结合
-// 使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个 Promie 对象
-function getFoo(){
-	return new Promise(function(resolve, reject){
-		resolve('foo');
-	})
-};
+// // Generator 函数与 Promise 结合
+// // 使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个 Promie 对象
+// function getFoo(){
+// 	return new Promise(function(resolve, reject){
+// 		resolve('foo');
+// 	})
+// };
 
-const g = function* (){
-	try {
-		const foo = yield getFoo();
-		console.log(foo);
-	} 
-	catch(e){
-		console.log(e);
-	}
-};
+// const g = function* (){
+// 	try {
+// 		const foo = yield getFoo();
+// 		console.log(foo);
+// 	} 
+// 	catch(e){
+// 		console.log(e);
+// 	}
+// };
 
-function run(generator){
-	const it = generator();
+// function run(generator){
+// 	const it = generator();
 
-	function go(result){
-		if (result.done) return result.value;
+// 	function go(result){
+// 		if (result.done) return result.value;
 
-		return result.value.then(function(value){
-			return go(it.next(value));
-		}, function(err){
-			return go(it.throw(err));
-		})
-	}
+// 		return result.value.then(function(value){
+// 			return go(it.next(value));
+// 		}, function(err){
+// 			return go(it.throw(err));
+// 		})
+// 	}
 
-	go(it.next());
-}
+// 	go(it.next());
+// }
 
-run(g);
+// run(g);
+
+
+
+
+/*
+Promise.try
+*/
+// example ==> 同步函数同步执行，异步函数异步执行 ==> 写法1
+// const f = () => console.log('now');
+// (async() => f())();
+// console.log('next');
+
+// (async() => f())()
+// .then(...);
+// console.log('next');
+// 上面这种写法会吃掉 f() 抛出的错误
+// 要捕捉错误，使用 promise.catch();
+
+// example ==> 写法2 ==> 使用 new Promise()
+const f = () => console.log('now');
+
+(
+	() => new Promise(resolve => resolve(f()))
+)();
+console.log('next');
+
+
+
+
 
 
 

@@ -30,17 +30,40 @@ yield 表达式
 只能用在 Generator 函数里面
 */
 
-function* f(){
-	console.log('执行了');
-}
+// function* f(){
+// 	console.log('执行了');
+// }
 
-var generator = f();
+// var generator = f();
 
-setTimeout(function(){
-	generator.next();
-}, 2000);
+// setTimeout(function(){
+// 	generator.next();
+// }, 2000);
 
+/*
+与 Iterator 接口的关系
+Generator 函数是遍历器生成函数，因此可以将 Generator 赋值给
+Symbol.iterator 属性，从而是对象具有 iterator 接口
+*/
+// example
+// var myIterable = {};
+// myIterable[Symbol.iterator] = function* (){
+// 	yield 1;
+// 	yield 2;
+// 	yield 3;
+// };
 
+// console.log([...myIterable]);// 扩展运算符 使用 遍历器接口
+
+/*
+遍历器本身的 遍历器接口 返回其本身
+*/
+// example
+// function* gen(){/* ... */};// Generator 函数
+
+// var g = gen();// 返回遍历器
+
+// console.log(g[Symbol.iterator]() === g);// 遍历对象 取遍历器属性 返回其本身
 
 
 

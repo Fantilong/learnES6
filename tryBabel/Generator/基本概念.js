@@ -66,7 +66,73 @@ Symbol.iterator 属性，从而是对象具有 iterator 接口
 // console.log(g[Symbol.iterator]() === g);// 遍历对象 取遍历器属性 返回其本身
 
 
+/*
+next 方法的参数
+可以带一个参数，作为上一个 yield 表达式的返回值
+*/
+// example
+// function* f(){
+// 	for (var i = 0; true; i++) {
+// 		var reset = yield i;
+// 		if (reset) i = -1;
+// 	}
+// };
 
+// var g = f();
+
+// console.log(g.next());
+// console.log(g.next());
+// console.log(g.next(true));
+
+// 遍历器通过 next 函数向 Generator 函数内部传值，
+// 可以调整函数行为
+// example
+function* foo(x){
+	/*
+	第一个 next 开始
+	
+	计算 (x + 1) 碰见 yield 表达式暂停，y 并未赋值
+	## 这一段表达式跟变量赋值并无关系，只是表达该段运行的结果
+	即：第一个 yield 表达式之前的执行结果
+
+	第一个 next 结束
+	*/
+
+	/*
+	第二个 next 开始, 传入参数 12 作为上一个 yield 表达式的返回值
+	
+	执行了 var y = 2 * yield; // y = 24,由于传了参数。
+	执行了 console.log(y)
+	执行了 (y / 3)
+
+	## 第一个 yield 与 第二个 yield 之间的操作
+
+	第二个 next 结束
+	*/
+
+	/*
+	第三个 next 开始, 传入参数 13
+
+	执行了 var z = 13;
+	执行了 return (x + y + z); ==> 5 + 24 + 13 = 42；
+
+	*/
+
+	var y = 2 * (yield (x + 1));
+	console.log(y);
+	var z = yield (y / 3);
+	return (x + y + z);
+};
+
+// var a = foo(5);
+// console.log(a.next());
+// console.log(a.next());
+// console.log(a.next());
+
+var b = foo(5);
+console.log(b.next());
+console.log(b.next(12));
+console.log(b.next(13));
 
 
 

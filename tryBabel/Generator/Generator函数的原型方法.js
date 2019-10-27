@@ -169,43 +169,93 @@ Generator 执行过程中报错，JS 引擎即认为 运行结束，
 返回 {value: undefined, done: true}
 */
 // example
-function* g(){
-	yield 1;
-	console.log('throwing an exception');
-	throw new Error('generator broke!');
-	yield 2;
-	yield 3;
-}
+// function* g(){
+// 	yield 1;
+// 	console.log('throwing an exception');
+// 	throw new Error('generator broke!');
+// 	yield 2;
+// 	yield 3;
+// }
 
-function log(generator){
-	var v;
-	console.log('starting generator');
-	try{
-		v = generator.next();
-		console.log('第一次运行 next 方法', v);
-	}
-	catch(err){
-		console.log('捕捉错误', v);
-	}
-	try{
-		v = generator.next();
-		console.log('第二次运行 next 方法', v);
-	}
-	catch(err){
-		console.log('捕捉错误', v);
-	}
-	try{
-		v = generator.next();
-		console.log('第三次运行 next 方法', v);
-	}
-	catch(err){
-		console.log('捕捉错误', v);
-	}
+// function log(generator){
+// 	var v;
+// 	console.log('starting generator');
+// 	try{
+// 		v = generator.next();
+// 		console.log('第一次运行 next 方法', v);
+// 	}
+// 	catch(err){
+// 		console.log('捕捉错误', v);
+// 	}
+// 	try{
+// 		v = generator.next();
+// 		console.log('第二次运行 next 方法', v);
+// 	}
+// 	catch(err){
+// 		console.log('捕捉错误', v);
+// 	}
+// 	try{
+// 		v = generator.next();
+// 		console.log('第三次运行 next 方法', v);
+// 	}
+// 	catch(err){
+// 		console.log('捕捉错误', v);
+// 	}
 
-	console.log('caller done');
-}
+// 	console.log('caller done');
+// }
 
-log(g());
+// log(g());
+
+/*
+Generator.prototype.return
+返回给定的值，终结遍历 Generator 函数
+*/
+// example ==> 终止遍历
+// function* gen(){
+// 	yield 1;
+// 	// return 'foo';
+// 	// yield 2;
+// 	// yield 3;
+// };
+
+// var g = gen();
+
+// console.log(g.next());
+// // console.log(g.next());
+// console.log(g.return('foo'));// { value: 'foo', done: true }
+// console.log(g.return());// { value: undefined, done: true }
+// console.log(g.next());
+
+/*
+当处在 try finally 代码块且正在执行，那 return 方法
+导致立刻进入 finally 代码块，执行完后，函数结束
+*/
+// example
+// function* numbers (){
+// 	yield 1;
+// 	try {
+// 		yield 2;
+// 		yield 3;
+// 	}
+// 	finally {
+// 		yield 4;
+// 		yield 5;
+// 	}
+// 	yield 6;
+// }
+// var g = numbers();
+// console.log(g.next());// { value: 1, done: false }
+// console.log(g.next());// { value: 2, done: false }
+// console.log(g.return(7));// { value: 4, done: false }
+// console.log(g.next());// { value: 5, done: false }
+// console.log(g.next());// { value: 7, done: true }
+
+
+
+
+
+
 
 
 

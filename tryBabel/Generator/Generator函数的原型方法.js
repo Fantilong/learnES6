@@ -252,7 +252,27 @@ Generator.prototype.return
 // console.log(g.next());// { value: 7, done: true }
 
 
+/*
+next()
+throw()
+return()
+的共同点：让 Generator 函数回复执行
+使用不同的语句替换 yield 表达式
+*/
 
+// example ==> next() 试讲 yield 表达式替换成一个值
+const g = function* (x, y){
+	let result = yield x + y;
+	return result;
+};
+
+const gen = g(1, 2);
+gen.next();
+gen.next(1);// result = 1;
+
+// gen.throw(new Error('出错了'));// 将 yield 表达式替换成 throw(new Error());
+
+// gen.return();// 将 yield 替换成 return 2;
 
 
 

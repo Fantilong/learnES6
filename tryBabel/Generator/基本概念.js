@@ -154,27 +154,112 @@ next 方法的参数
 wrapper 函数包裹 Generator
 */
 
-function wrapper(generatorFunction){
-	return function(...args){
-		let generatorObject = generatorFunction(...args);
-		generatorObject.next();
-		return generatorObject;
-	};
-};
+// function wrapper(generatorFunction){
+// 	return function(...args){
+// 		let generatorObject = generatorFunction(...args);
+// 		generatorObject.next();
+// 		return generatorObject;
+// 	};
+// };
 
-const wrapped = wrapper(function* (){
-	console.log(`First input: ${yield}`);
-	return 'DONE';
-});
+// const wrapped = wrapper(function* (){
+// 	console.log(`First input: ${yield}`);
+// 	return 'DONE';
+// });
 
-console.log(wrapped().next('hello!'));
+// console.log(wrapped().next('hello!'));
 
 /*
+for ... of 循环
+自动遍历 Generator 函数运行时，生成的 Iterator 对象，不需要调用 next 方法
+*/
+// example
+// function* foo(){
+// 	yield 1;
+// 	yield 2;
+// 	yield 3;
+// 	yield 4;
+// 	yield 5;
+// 	return 6;// for ... of 循环不返回
+// };
 
+// for(let v of foo()){
+// 	console.log(v);
+// };
+
+// // example ==> Gnerator 函数和 for of 循环，实现 斐波那契数列
+// function* fibonacci(){
+// 	let [prev, curr] = [0, 1];
+// 	for(;;){
+// 		yield curr;
+// 		[prev, curr] = [curr, prev + curr];
+// 	}
+// };
+
+// for (let n of fibonacci()){
+// 	if (n > 1000) break;
+// 	console.log(n);
+// }
+
+// example ==> 通过 Generator 函数给JS 原生对象添加遍历接口
+// function* objectEntries(obj){
+// 	let propKeys = Reflect.ownKeys(obj);
+
+// 	for (let propKey of propKeys){
+// 		yield [propKey, obj[propKey]]; 
+// 	}
+// }
+
+// let jane = {first: 'Jane', last: 'Doe'};
+
+// for(let [key, value] of objectEntries(jane)){
+// 	console.log(`${key}: ${value}`);
+// }
+
+// example ==> 添加遍历器接口的另一种写法 Symbol.iterator
+// function* objectEntries(){
+// 	let propKeys = Object.keys(this);
+
+// 	for (let propKey of propKeys){
+// 		yield [propKey, this[propKey]];
+// 	}
+// }
+
+// let jane = {first: 'Jane', last: 'Doe'};
+
+// jane[Symbol.iterator] = objectEntries;
+
+// for (let [key, value] of jane){
+// 	console.log(`${key}: ${value}`);
+// }
+
+/*
+for of ... Array.from 方法内部调用的，都是遍历器接口
+意味着，它们都可以将 Generator 函数返回的 Iterator 对象
+作为参数
 */
 
+// function* numbers (){
+// 	yield 1;
+// 	yield 2;
+// 	return 3;
+// 	yield 4;
+// }
 
+// // 扩展运算符
+// console.log([...numbers()]);
 
+// // Array.from 方法
+// console.log(Array.from(numbers()));
+
+// // 解构赋值
+// let [x, y] = numbers();
+// console.log(x + ':' + y);
+
+// // for ... of 循环
+// for (let n of numbers()){
+// 	console.log(n);
+// }
 
 
 

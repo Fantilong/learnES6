@@ -100,18 +100,39 @@ Promise ==> 解决回调嵌套过深的问题，(非新功能，而是新写法�
 // console.log(g.next(2));
 
 // example ==> 部署错误处理
-function* gen(x){
-	try {
-		var y = yield x + 2;
-	}
-	catch(e){
-		console.log(e);
-	}
-	return y;
+// function* gen(x){
+// 	try {
+// 		var y = yield x + 2;
+// 	}
+// 	catch(e){
+// 		console.log(e);
+// 	}
+// 	return y;
+// };
+// var g = gen(1);
+// console.log(g.next());
+// g.throw('出错了');
+
+/*
+异步任务封装
+*/
+var fetch = require('node-fetch');
+function* gen(){
+	var url = 'https://api.github.com/users/github';
+	var result = yield fetch(url);
+	console.log(result.bio);
 };
-var g = gen(1);
-console.log(g.next());
-g.throw('出错了');
+
+var g = gen();
+var result = g.next();
+result.value.then(function(data){
+	return data.json();
+})
+.then(function(data){
+	g.next(data);
+})
+
+
 
 
 

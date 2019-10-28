@@ -17,10 +17,10 @@ Promise对象
 callback(重新调用)
 */
 // example
-fs.readFile('url', 'utf-8', function(err, data){
-	if (err) throw err;
-	// Do something with data
-});
+// fs.readFile('url', 'utf-8', function(err, data){
+// 	if (err) throw err;
+// 	// Do something with data
+// });
 // ## 任务分段执行，上一段的上下文结束后，无法捕捉错误，智能当做参数
 // 传入第二段。
 // 为什么 Node 约定，回调函数的第一个参数，
@@ -67,14 +67,51 @@ Promise ==> 解决回调嵌套过深的问题，(非新功能，而是新写法�
 4、协程 A 恢复执行
 */
 // example ==> 读取文件的协程写法
-function* asyncJob(){
-	// ... another code
-	var f = yield readFile('fileA');
-	// ... another code
-};
+// function* asyncJob(){
+// 	// ... another code
+// 	var f = yield readFile('fileA');
+// 	// ... another code
+// };
 // yield 分割任务，碰见 yield 交出执行权，等待交还执行权
 
+/*
+"协程"的 Generator 实现
+特点：可以交出函数的执行权（即暂停执行）
+*/
+// example 
+// function* gen(x){
+// 	var y = yield x + 2;
+// 	return y;
+// };
+// var g = gen(1);
+// console.log(g.next());
+// console.log(g.next());
 
+
+// Generator 函数的数据交换与错误处理
+
+// // example ==> next方法接收参数
+// function* gen(x){
+// 	var y = yield x + 2;
+// 	return y;
+// };
+// var g = gen(1);
+// console.log(g.next());
+// console.log(g.next(2));
+
+// example ==> 部署错误处理
+function* gen(x){
+	try {
+		var y = yield x + 2;
+	}
+	catch(e){
+		console.log(e);
+	}
+	return y;
+};
+var g = gen(1);
+console.log(g.next());
+g.throw('出错了');
 
 
 

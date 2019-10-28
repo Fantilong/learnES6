@@ -34,26 +34,46 @@ Promise ==> 解决回调嵌套过深的问题，(非新功能，而是新写法�
 强耦合：一个操作需要修改，上层回调和下层回调可能都要跟着修改
 */
 // example ==> 回调嵌套过深的问题
-fs.readFile('fileA', 'utf-8', function(err, data){
-	fs.readFile('fileB', 'utf-8', function(err, data){
-		// ...
-	})
-})
-// example ==> Promise链式调用
-var readFile = require('fs-readfile-promise');
-readFile(fileA)
-.then(function(data){
-	console.log(data.toString());
-})
-.then(function(){
-	return readFile(fileB);
-})
-.then(function(data){
-	console.log(data.toString());
-})
-.catch(function(err){
-	console.log(err);
-})
+// fs.readFile('fileA', 'utf-8', function(err, data){
+// 	fs.readFile('fileB', 'utf-8', function(err, data){
+// 		// ...
+// 	})
+// })
+// // example ==> Promise链式调用
+// var readFile = require('fs-readfile-promise');
+// readFile(fileA)
+// .then(function(data){
+// 	console.log(data.toString());
+// })
+// .then(function(){
+// 	return readFile(fileB);
+// })
+// .then(function(data){
+// 	console.log(data.toString());
+// })
+// .catch(function(err){
+// 	console.log(err);
+// })
+
+/*
+异步编程的 Generator 解决方案
+*/
+/*
+异步编程 ==> 协程解决（多任务解决方案）：多个线程相互协作，完成异步任务
+协程运行流程：
+1、协程 A 开始执行
+2、协程 A 执行到一半，进入暂停，执行权转义到协程 B
+3、（一段时间后）协程 B 交还执行权
+4、协程 A 恢复执行
+*/
+// example ==> 读取文件的协程写法
+function* asyncJob(){
+	// ... another code
+	var f = yield readFile('fileA');
+	// ... another code
+};
+// yield 分割任务，碰见 yield 交出执行权，等待交还执行权
+
 
 
 

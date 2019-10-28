@@ -82,6 +82,15 @@ JS 语言的 Thunk 函数：替换的不是表达式，而是多参数函数
 Thunkify 模块
 生产环境的转换器，建议使用 Thunkify 模块
 */
+// 载入模块
+// var thunkify = require('thunkify');
+// var fs = require('fs');
+
+// var read = thunkify(fs.readFile);
+// read('../package.json')(function(err, str){
+// 	console.log(str.toString());
+// });
+
 
 
 

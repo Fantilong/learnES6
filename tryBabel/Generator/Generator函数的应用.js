@@ -125,6 +125,25 @@ Generator 函数逐行读取文本文件
 // }
 
 
+/*
+部署 iterator 接口
+*/
+
+// example
+// function* iteratorEntries(obj){
+// 	let keys = Object.keys(obj);
+// 	for(let i = 0; i < keys.length; i++){
+// 		let key = keys[i];
+// 		yield [key, obj[key]]
+// 	}
+// }
+
+// let myObj = {foo: 3, bar: 7};
+
+// for(let [key, value] of iteratorEntries(myObj)){
+// 	console.log(key, value);
+// }
+
 
 
 

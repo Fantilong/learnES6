@@ -91,8 +91,73 @@ Thunkify 模块
 // 	console.log(str.toString());
 // });
 
+/*
+Generator 函数的流程管理
+Thunk 函数用于 Generator 函数的自动流程管理
+*/
+// example ==> 只适合同步操作
+// function* gen(){
+// 	// ...
+// }
+// var g = gen();
+// var res = g.next();
+// while(!res.done){
+// 	console.log(res.value);
+// 	res.next();
+// }
+/*
+value ==> 返回next()函数的执行结果
+done ==> 保存状态
+*/
 
+// example ==> 异步操作的自动流程管理
+// var fs = require('fs');
+// var thunkify = require('thunkify');
+// var readFileThunk = thunkify(fs.readFile);
 
+// var gen = function* (){
+// 	var r1 = yield readFileThunk('/etc/fstab');
+// 	console.log(r1.toString());
+// 	var r2 = yield readFileThunk('/etc/shells');
+// 	console.log(r2.toString());
+// };
+
+// var g = gen();
+
+// var r1 = g.next();
+// r1.value(function(err, data){
+// 	if (err) throw err;
+// 	var r2 = g.next(data);
+// 	r2.value(function(err, data){
+// 		if (err) throw err;
+// 		g.next(data);
+// 	});
+// });
+
+/*
+Thunk 函数的自动流程管理
+基于 Thunk 函数的 Generator 执行器
+*/
+function run(fn){
+	var gen = fn();
+
+	function next(err, data){
+		var result = gen.next(data);
+		if (result.done) return;
+		result.value(next);
+	}
+
+	next();
+};
+
+function* g(){
+	var f1 = yield readFileThunk('fileA');
+	var f2 = yield readFileThunk('fileB');
+	// ...
+	var fn = yield readFileThunk('fileN');
+}
+
+run(g);
 
 
 

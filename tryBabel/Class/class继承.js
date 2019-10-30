@@ -179,13 +179,23 @@ super 在静态方法中，指向父类
 super 要显式指定是作为 函数 还是 对象
 */
 
-class A {
-	constructor(){
-		console.log();
-	}
-}
+// class A {
+// 	constructor(){
+// 		console.log();
+// 	}
+// }
 
-var a = new A();
+// var a = new A();
+
+
+/*
+类的 prototype 属性 和 __proto__属性
+*/
+// class A{}
+// class B extends A{}
+
+// console.log(B.__proto__ === A);
+// console.log(B.prototype.__proto__ === A.prototype);
 
 
 

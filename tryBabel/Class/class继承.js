@@ -135,6 +135,60 @@ super到底是什么
 // a.print();// 父类当中的 属性值 没有发生变化，
 
 
+/*
+super 在静态方法中，指向父类
+*/
+// class Parent {
+// 	static myMethod(){
+// 		console.log('static', msg);
+// 	}
+
+// 	myMethod(msg){
+// 		console.log('instance', msg);
+// 	}
+// }
+
+// class Child extends Parent{
+// 	static myMethod(msg){
+// 		super.myMethod(msg);
+// 	}
+
+// 	myMethod(msg){
+// 		super.myMethod(msg);
+// 	}
+// }
+
+// Child.myMethod(1);
+
+// var child = new Child();
+// child.myMethod(2);
+
+/*
+子类 constructor (作为函数调用): super ==> 父类构造器 
+相当于让 父类的构造器绑定 super 所处的环境
+让父类构造器在当前的环境中 按父类实例的构造规则，生成实例
+
+子类 normal function (作为对象使用): super ==> 父类原型对象
+当调用父类原型对象的方法时，实在当前的 环境中找方法所需要的变量
+即 super ==> this
+
+子类 static function (作为对象): super ==> 父类本身
+就是说可以调用父类的静态方法，但是 执行环境是 super 所处
+的环境
+
+super 要显式指定是作为 函数 还是 对象
+*/
+
+class A {
+	constructor(){
+		console.log();
+	}
+}
+
+var a = new A();
+
+
+
 
 
 

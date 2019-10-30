@@ -151,6 +151,58 @@ constructor 方法
 // p3.printName();
 
 
+/*
+取值函数 getter 与 存值函数 setter
+*/
+// example 设置 get、set 关键字，拦截属性存取行为
+// class MyClass {
+// 	constructor(){}
+// 	get prop(){
+// 		return 'getter';
+// 	}
+// 	set prop (value){
+// 		console.log('setter: ' + value);
+// 	}
+// }
+
+// let inst = new MyClass();
+
+// // inst.prop = 123;
+// console.log(inst.prop);
+
+/*
+存值与取值函数是设置在属性的 Descriptor 对象上的
+*/
+// class CustomHTMLElement{
+// 	constructor(element){
+// 		this.element = element;	
+// 	}
+// 	get html(){
+// 		return this.element.innerHTML;
+// 	}
+// 	set html(value){
+// 		this.element.innerHTML = value;
+// 	}
+// }
+
+// var descriptor = Object.getOwnPropertyDescriptor(
+// 	CustomHTMLElement.prototype, 'html'
+// );
+
+// console.log('get' in descriptor);
+// console.log('set' in descriptor);
+
+/*
+属性表达式，类的属性名可以采用表达式
+*/
+// example
+let methodName = 'getArea';
+class Square{
+	constructor(length){}
+	[methodName](){}// 属性名是表达式
+}
+
+
 
 
 

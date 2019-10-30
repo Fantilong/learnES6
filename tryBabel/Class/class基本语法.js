@@ -234,34 +234,34 @@ Class 表达式
 // 有 name 属性
 // 设置 Generator 属性的方法
 // example
-class Foo {
-	constructor(...args){
-		this.args = args;
-	}
-	* [Symbol.iterator](){
-		for (let arg of this.args){
-			yield arg;
-		}
-	}
-}
+// class Foo {
+// 	constructor(...args){
+// 		this.args = args;
+// 	}
+// 	* [Symbol.iterator](){
+// 		for (let arg of this.args){
+// 			yield arg;
+// 		}
+// 	}
+// }
 // 部署了 遍历器接口，可以使用 for of 循环
-for (let x of new Foo('hello', 'world')){
-	console.log(x);
-}
-// this 指向，默认指向类的实例
-// example
-class Logger {
-	printName(name = 'there'){
-		this.print(`Hello ${name}`);
-	}
-	print(text){
-		console.log(text);
-	}
-}
+// for (let x of new Foo('hello', 'world')){
+// 	console.log(x);
+// }
+// // this 指向，默认指向类的实例
+// // example
+// class Logger {
+// 	printName(name = 'there'){
+// 		this.print(`Hello ${name}`);
+// 	}
+// 	print(text){
+// 		console.log(text);
+// 	}
+// }
 
-const logger = new Logger();
-const {printName} = logger;// 解构赋值
-printName();// this 指向 undefined
+// const logger = new Logger();
+// const {printName} = logger;// 解构赋值
+// printName();// this 指向 undefined
 
 // 解决方案1 ==> 绑定函数的的运行环境
 // class Logger{
@@ -300,18 +300,61 @@ printName();// this 指向 undefined
 
 /*
 静态方法
-用于设置方法 不会被继承，即类的私有方法
 */
 // example
-class Foo{
-	static classMethod(){
-		return 'hello';
-	}
-}
+// class Foo{
+// 	static classMethod(){
+// 		return 'hello';
+// 	}
+// }
 
-Foo.classMethod();
-var foo = new Foo();
-foo.classMethod();// 报错
+// Foo.classMethod();
+// var foo = new Foo();
+// foo.classMethod();// 报错
+
+// example ==> 静态方法 存在 this，则指向 类，并不指向 实例
+// class Foo {
+// 	static bar(){
+// 		this.baz();
+// 	}
+// 	static baz(){
+// 		console.log('hello');
+// 	}
+// 	baz(){
+// 		console.log('world');
+// 	}
+// }
+// Foo.bar();// hello
+// var f = new Foo();
+// f.baz();// world
+
+
+/*
+父类的静态方法，可以被子类继承
+*/
+// class Foo{
+// 	static classMethod(){
+// 		return 'hello';
+// 	}
+// }
+
+// class Bar extends Foo{}
+// Bar.classMethod();
+
+/*
+静态方法 也可以从 super 对象上调用
+*/
+// class Foo {
+// 	static classMethod(){
+// 		return 'hello';
+// 	}
+// }
+// class Bar extends Foo{
+// 	static classMethod(){
+// 		return super.classMethod() + ', too';
+// 	}
+// }
+// console.log(Bar.classMethod());
 
 
 

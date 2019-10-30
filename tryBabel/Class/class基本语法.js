@@ -196,11 +196,124 @@ constructor 方法
 属性表达式，类的属性名可以采用表达式
 */
 // example
-let methodName = 'getArea';
-class Square{
-	constructor(length){}
-	[methodName](){}// 属性名是表达式
+// let methodName = 'getArea';
+// class Square{
+// 	constructor(length){}
+// 	[methodName](){}// 属性名是表达式
+// }
+
+
+/*
+Class 表达式
+*/
+
+// // example ==> 使用表达式定义
+// const MyClass = class Me {
+// 	getClassName(){
+// 		return Me.name;
+// 	}
+// }
+// console.log(MyClass.prototype.getClassName());
+
+// // 如果类 内部没有用到 类名。可以简写成如下
+// const MyClass = class {};
+
+// 采用 Class 表达式，可以写出立即执行的 Class
+// let person = new class {
+// 	constructor(name){
+// 		this.name = name;
+// 	}
+// 	sayName(){
+// 		console.log(this.name);
+// 	}
+// }('Name');
+// person.sayName();
+
+// 类 默认是严格模式
+// 不存在变量提升，为了保证 子类 在 父类 之后定义
+// 有 name 属性
+// 设置 Generator 属性的方法
+// example
+class Foo {
+	constructor(...args){
+		this.args = args;
+	}
+	* [Symbol.iterator](){
+		for (let arg of this.args){
+			yield arg;
+		}
+	}
 }
+// 部署了 遍历器接口，可以使用 for of 循环
+for (let x of new Foo('hello', 'world')){
+	console.log(x);
+}
+// this 指向，默认指向类的实例
+// example
+class Logger {
+	printName(name = 'there'){
+		this.print(`Hello ${name}`);
+	}
+	print(text){
+		console.log(text);
+	}
+}
+
+const logger = new Logger();
+const {printName} = logger;// 解构赋值
+printName();// this 指向 undefined
+
+// 解决方案1 ==> 绑定函数的的运行环境
+// class Logger{
+// 	constructor(){
+// 		this.printName = this.printName.bind(this);
+// 	}
+// }
+// // 解决方案2 ==> 使用箭头函数
+// class Obj {
+// 	constructor(){
+// 		this.getThis = () => this;
+// 	}
+// }
+// const myObj = new Obj();
+// myObj.getThis() === myObj;
+// 解决方案3 ==> 使用 Proxy，自动绑定 this
+// function selfish(target){
+// 	const cache = new WeakMap();
+// 	const handler = {
+// 		get (target, key){
+// 			const value = Reflect.get(target, key);
+// 			if (typeof value !== 'function') {
+// 				return value
+// 			}
+// 			if (!cache.has(value)) {
+// 				cache.set(value, value.bind(target));
+// 			}
+// 			return cache.get(value);
+// 		}
+// 	}
+// 	const proxy = new Proxy(target, handler);
+// 	return proxy;
+// };
+// const logger = selfish(new Logger());
+
+
+/*
+静态方法
+用于设置方法 不会被继承，即类的私有方法
+*/
+// example
+class Foo{
+	static classMethod(){
+		return 'hello';
+	}
+}
+
+Foo.classMethod();
+var foo = new Foo();
+foo.classMethod();// 报错
+
+
 
 
 

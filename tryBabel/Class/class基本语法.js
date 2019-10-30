@@ -412,6 +412,38 @@ ES6 明确规定 Class 内部只有静态方法，没有静态属性
 // }
 
 
+/*
+new.target 属性
+返回 new 命令作用于的那个构造函数
+常用于 构造函数中，
+如果不是 new 命令 或 Reflect.construct() 调用的
+则返回 undefined
+*/
+// function Preson(name){
+// 	if (new.target !== undefined) {
+// 		this.name = name;
+// 	}
+// 	else {
+// 		throw new Error('必须使用 new 命令生成实例');
+// 	}
+// }
+
+// 另一种写法
+// function Person(name){
+// 	if (new.target === Person) {
+// 		this.name = name;
+// 	}
+// 	else {
+// 		throw new Error('必须使用 new 命令生成实例');
+// 	}
+// };
+
+// var person = new Person('张三');
+// var notAPerson = Person.call(person, '张三');
+
+// Class 内部调用 new.target 返回当前的Class
+
+
 
 
 

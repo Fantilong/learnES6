@@ -357,6 +357,79 @@ Class 表达式
 // console.log(Bar.classMethod());
 
 
+/*
+实例属性的新写法
+*/
+// example
+// class IncreasingCounter {
+// 	_count = 0;
+// 	get value(){
+// 		console.log('Getting the current value');
+// 		return this._count;
+// 	}
+// 	increment(){
+// 		this._count++;
+// 	}
+// }
+
+/*
+静态属性
+Class 本身的属性，即 Class.propName 
+ES6 明确规定 Class 内部只有静态方法，没有静态属性
+*/
+
+/*
+私有方法 和 私有属性
+*/
+// 现有的解决方法 
+// example ==> 将私有方法移除模块
+// class Widget {
+// 	foo(baz){
+// 		bar.call(this, baz);
+// 	}
+// }
+
+// function bar(baz){
+// 	return this.snaf = baz;
+// }
+
+// example ==> 利用 Symbol 值的唯一性，
+// 将私有方法的名字命名为一个 symbol 值,
+// 使用 Reflect.ownKeys() 方法可以拿到 Symbol 值的属性
+// const bar = Symbol('bar');
+// const snaf = Symbol('snaf');
+
+// export default class myClass{
+// 	// 公有
+// 	foo(baz){
+// 		this[bar](baz);
+// 	}
+
+// 	// 私有
+// 	[bar](baz){
+// 		return this[snaf] = baz;
+// 	}
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

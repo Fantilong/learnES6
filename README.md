@@ -10,7 +10,7 @@ $ node --v8-options | grep harmony
 $ npm install -g es-checker
 $ es-checker
 ```
-## Babel 转码器
+## Babel 转码器 ---
 可以将 ES6 代码转换为 ES5 代码，从而在现有环境执行<br>
 安装 Babel<br>
 ```
